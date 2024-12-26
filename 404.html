@@ -9,7 +9,7 @@
 <script>
     window.addEventListener('DOMContentLoaded', () => {
         const currentPath = window.location.pathname;
-        alert(currentPath);
+        localStorage.setItem("currentPath", currentPath);
 
         if (currentPath === "/") {
             console.log("You are already on the homepage.");
