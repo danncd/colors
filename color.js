@@ -69,8 +69,6 @@ function toHex(n) {
 }
 
 
-
-
 // Update the colors and the URL hash
 function randomizeColors() {
     colors.forEach((colorDiv, index) => {
