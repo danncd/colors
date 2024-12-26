@@ -24,7 +24,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const currentPath = localStorage.getItem("currentPath");
 
     if (currentPath) {
-        alert(currentPath);
+        console.log(currentPath);
     } else {
         console.log("No currentPath found in localStorage.");
     }
