@@ -7,18 +7,13 @@
 </head>
 <body>
 <script>
-    // This function checks the current URL and redirects if needed
     window.addEventListener('DOMContentLoaded', () => {
         const currentPath = window.location.pathname;
         alert(currentPath);
 
-        // Example: If the path is dynamic (anything other than "/"), redirect
         if (currentPath === "/") {
-            // If it's the homepage, do nothing or handle the homepage
             console.log("You are already on the homepage.");
         } else {
-            // If there is a path (anything other than "/"), redirect
-            // Here, we redirect to the homepage or to a specific page
             window.location.href = "https://colxrs.haocdan.com";  // Redirect to main page
         }
     });
