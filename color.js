@@ -205,18 +205,16 @@ document.addEventListener('keydown', function (event) {
 });
 
 window.addEventListener('DOMContentLoaded', () => {
-    // Extract the pathname (e.g., /28279C-CA53FE-EBAD4F-7148C8-74535C)
+    // Get the current path (after the domain)
     const currentPath = window.location.pathname;
 
-    if (currentPath && currentPath !== '/') {
-        const colorArray = currentPath.substring(1).split('-'); // Remove the '/' and split by '-'
-
-        // Update the colors on the page based on the path
-        colorArray.forEach((color, index) => {
-            if (colors[index] && colorCode[index]) {
-                colors[index].style.backgroundColor = `#${color}`;
-                colorCode[index].textContent = `#${color}`;
-            }
-        });
+    // Check if the path is dynamic and requires a redirect
+    if (currentPath === "/") {
+        // If it's the homepage, do nothing or redirect to a specific page
+        console.log("You are already on the homepage.");
+    } else {
+        // If there is any other path, redirect to colxrs.haocdan.com
+        // You can further customize the redirect logic based on the path
+        window.location.href = "https://colxrs.haocdan.com";  // Redirect to the homepage
     }
 });
