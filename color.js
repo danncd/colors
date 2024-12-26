@@ -24,16 +24,11 @@ window.addEventListener('DOMContentLoaded', () => {
     const currentPath = localStorage.getItem("currentPath");
 
     if (currentPath) {
-        console.log("Retrieved currentPath from localStorage: ", currentPath);
+        alert(currentPath);
     } else {
         console.log("No currentPath found in localStorage.");
     }
 });
-
-alert(currentPath);
-
-
-alert(currentPath);
 
 function getRandomColor() {
     const letters = '0123456789ABCDEF';
