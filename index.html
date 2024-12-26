@@ -83,6 +83,19 @@
     <div class="generate">
         <button id="generate">Generate</button>
     </div>
+    <script>
+        // Redirection logic should happen first, before any other scripts are executed.
+        window.addEventListener('DOMContentLoaded', () => {
+            const currentPath = window.location.pathname;
+            // Redirect to the desired page if there is a path
+            if (currentPath !== "/") {
+                // Redirect to the main page
+                window.location.href = "https://colxrs.haocdan.com";  // Customize the URL as needed
+            } else {
+                console.log("You are on the homepage.");
+            }
+        });
+    </script>
     <script src="color.js"></script>
 </body>
 </html>

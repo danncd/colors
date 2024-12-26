@@ -203,18 +203,3 @@ document.addEventListener('keydown', function (event) {
         randomizeColors();
     }
 });
-
-window.addEventListener('DOMContentLoaded', () => {
-    // Get the current path (after the domain)
-    const currentPath = window.location.pathname;
-
-    // Check if the path is dynamic and requires a redirect
-    if (currentPath === "/") {
-        // If it's the homepage, do nothing or redirect to a specific page
-        console.log("You are already on the homepage.");
-    } else {
-        // If there is any other path, redirect to colxrs.haocdan.com
-        // You can further customize the redirect logic based on the path
-        window.location.href = "https://colxrs.haocdan.com";  // Redirect to the homepage
-    }
-});
