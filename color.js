@@ -4,6 +4,7 @@ const lockButtons = document.querySelectorAll('.lock-button');  // Lock buttons
 const undoButtons = document.querySelectorAll('.undo');
 const toast = document.getElementById('copy-toast');
 const menuButton = document.getElementById('menu-button');
+const generateButton = document.getElementById('generate')
 
 let mode = true;
 
@@ -166,6 +167,10 @@ menuButton.addEventListener("click", function() {
     }
 });
 
+generateButton.addEventListener("click", function() {
+    event.preventDefault();
+    randomizeColors();
+});
 
 // Set colors based on URL hash when the page loads
 function setColorsFromUrl() {
