@@ -9,12 +9,12 @@
 <script>
     window.addEventListener('DOMContentLoaded', () => {
         const currentPath = window.location.pathname;
-        localStorage.setItem("currentPath", currentPath);
+        alert(currentPath);
 
         if (currentPath === "/") {
             console.log("You are already on the homepage.");
         } else {
-            window.location.href = "https://colxrs.haocdan.com";
+            window.location.href = "https://colxrs.haocdan.com";  // Redirect to main page
         }
     });
 </script>
