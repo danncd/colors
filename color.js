@@ -25,7 +25,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
     if (currentPath) {
         setColorsFromUrl(currentPath);
-        updateUrlWithColors();
     }
 });
 
@@ -86,6 +85,7 @@ function randomizeColors() {
         }
     });
     updateUrlWithColors();
+
 }
 
 // Get colors from colorCode buttons
@@ -98,6 +98,7 @@ function getColors() {
     });
     return colorsList;
 }
+
 
 // Update the URL hash with the colors
 function updateUrlWithColors() {
@@ -183,8 +184,8 @@ function setColorsFromUrl(path) {
         const colorArray = hash.split('-');
         colorArray.forEach((color, index) => {
             if (colors[index] && colorCode[index]) {
-                colors[index].style.backgroundColor = color;  // Set background color of the div
-                colorCode[index].textContent = color;  // Update the color code text
+                colors[index].style.backgroundColor = '#' + color;  // Set background color of the div
+                colorCode[index].textContent = '#' + color;  // Update the color code text
             }
         });
     }
