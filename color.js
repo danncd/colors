@@ -24,9 +24,8 @@ window.addEventListener('DOMContentLoaded', () => {
     const currentPath = localStorage.getItem("currentPath");
 
     if (currentPath) {
-        console.log(currentPath);
-    } else {
-        console.log("No currentPath found in localStorage.");
+        setColorsFromUrl(currentPath);
+        updateUrlWithColors();
     }
 });
 
@@ -180,8 +179,8 @@ generateButton.addEventListener("click", function() {
 });
 
 // Set colors based on URL hash when the page loads
-function setColorsFromUrl() {
-    const hash = window.location.hash.substring(1);  // Remove the '#' from the hash
+function setColorsFromUrl(path) {
+    const hash = path.startsWith('/') ? path.substring(1) : path;  // Remove the leading slash if it exists
     if (hash) {
         const colorArray = hash.split('-');
         colorArray.forEach((color, index) => {
@@ -192,7 +191,6 @@ function setColorsFromUrl() {
         });
     }
 }
-
 
 
 
