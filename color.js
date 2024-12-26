@@ -86,7 +86,6 @@ function randomizeColors() {
         }
     });
     updateUrlWithColors();
-
 }
 
 // Get colors from colorCode buttons
@@ -99,7 +98,6 @@ function getColors() {
     });
     return colorsList;
 }
-
 
 // Update the URL hash with the colors
 function updateUrlWithColors() {
