@@ -11,6 +11,9 @@ let mode = true;
 let unlocked = [true, true, true, true, true];  // Keep track of whether the colors are locked
 let colorStacks = [];
 
+let currentURL = window.location.pathname;
+let path = currentURL.substring(1);
+
 colorCode.forEach((colorButton, index) => {
     // Get the initial color value (from the textContent or style attribute)
     const initialColor = colorButton.textContent.trim() || colors[index].style.backgroundColor;
@@ -80,6 +83,8 @@ function randomizeColors() {
             colorCode[index].textContent = newColor;
         }
     });
+    updateUrlWithColors();
+    alert(path);
 
 }
 
