@@ -26,6 +26,7 @@ window.addEventListener('DOMContentLoaded', () => {
     if (currentPath) {
         setColorsFromUrl(currentPath);
         updateUrlWithColors();
+        localStorage.removeItem('currentPath');
     }
 });
 
@@ -183,11 +184,9 @@ function setColorsFromUrl(path) {
     const hash = path.startsWith('/') ? path.substring(1) : path;  // Remove the leading slash if it exists
     if (hash) {
         const colorArray = hash.split('-');
-        colorArray.forEach((color, index) => {
-            if (colors[index] && colorCode[index]) {
-                colors[index].style.backgroundColor = color;  // Set background color of the div
-                colorCode[index].textContent = color;  // Update the color code text
-            }
+        colors.forEach((colorDiv, index) => {
+            colorDiv.style.backgroundColor = '#' + colorArray[index];
+            colorCode[index].textContent = '#' + colorArray[index];
         });
     }
 }
