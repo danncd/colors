@@ -99,6 +99,26 @@ button {
 .header-below-info {
     border-top: 1px solid #b8b8b8;
     height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.generate-color-around {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+textarea {
+    width: 150px;
+    height: 30px;
+    margin: 10px;
+    font-size: 30px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #ccc;
+    resize: none;
 }
 
 .spacebar-info {

@@ -130,6 +130,12 @@ lockButtons.forEach((button, index) => {
             button.classList.remove('locked');
             button.innerHTML = '<img src="images/locked.png" alt="Lock Icon" />';
         }
+        if (isColorTooDark(colorCode[index].textContent)) {
+            lockButtons[index].querySelector('img').classList.add('white');
+
+        } else {
+            lockButtons[index].querySelector('img').classList.remove('white');
+        }
     });
 });
 
