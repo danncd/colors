@@ -129,14 +129,11 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 function getRandomColor() {
-    const letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
     const savedContent = localStorage.getItem('textBoxContent');
-    if (isValidHexColor(savedContent)) {
+
+    if (savedContent && isValidHexColor(savedContent)) {
         const color = generateRandomComplementaryColor(savedContent);
+
         if (!mode) {
             const rgb = hexToRgb(color);
             const pastelColor = rgbToHex(
@@ -148,18 +145,19 @@ function getRandomColor() {
         } else {
             return color;
         }
-    }
-    if (!mode) {
-
-        const rgb = hexToRgb(color);
-        const pastelColor = rgbToHex(
-            Math.min(255, rgb.r + 120),
-            Math.min(255, rgb.g + 120),
-            Math.min(255, rgb.b + 120)
-        );
-        return pastelColor;
     } else {
-        return color;
+        const randomColor = generateRandomColor();
+        if (!mode) {
+            const rgb = hexToRgb(randomColor);
+            const pastelColor = rgbToHex(
+                Math.min(255, rgb.r + 120),
+                Math.min(255, rgb.g + 120),
+                Math.min(255, rgb.b + 120)
+            );
+            return pastelColor;
+        } else {
+            return randomColor;
+        }
     }
 }
 
