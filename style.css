@@ -288,6 +288,7 @@ textarea.textBox::placeholder {
     filter: invert(1);
 }
 textarea.color-code {
+    overflow: hidden;
     text-transform: uppercase;
     text-align: center;
     width: 145px;
