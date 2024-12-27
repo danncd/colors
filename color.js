@@ -86,15 +86,16 @@ function randomizeColors() {
             colorStacks[index].push(newColor);
             colorDiv.style.backgroundColor = newColor;
             colorCode[index].textContent = newColor;
+
             if (isColorTooDark(newColor)) {
                 colorCode[index].style.color = 'white';
-                undoButtons[index].classList.add('white');
-                lockButtons[index].classList.add('white');
+                lockButtons[index].querySelector('img').classList.add('white');
+                undoButtons[index].querySelector('img').classList.add('white');
 
             } else {
                 colorCode[index].style.color = 'black';
-                undoButtons[index].classList.remove('white');
-                lockButtons[index].classList.add('white');
+                lockButtons[index].querySelector('img').classList.remove('white');
+                undoButtons[index].querySelector('img').classList.remove('white');
             }
         }
     });
@@ -140,6 +141,17 @@ undoButtons.forEach((button, index) => {
 
             colors[index].style.backgroundColor = previousColor;
             colorCode[index].textContent = previousColor;
+
+            if (isColorTooDark(colorCode[index].textContent)) {
+                colorCode[index].style.color = 'white';
+                lockButtons[index].querySelector('img').classList.add('white');
+                undoButtons[index].querySelector('img').classList.add('white');
+
+            } else {
+                colorCode[index].style.color = 'black';
+                lockButtons[index].querySelector('img').classList.remove('white');
+                undoButtons[index].querySelector('img').classList.remove('white');
+            }
         }
     });
 });
