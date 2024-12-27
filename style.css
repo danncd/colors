@@ -130,6 +130,7 @@ button {
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.06);
 }
 
 .header-below-info {
@@ -245,7 +246,6 @@ textarea.textBox::placeholder {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    background-color: #D4EB8F;
 }
 .palette {
     width: 1050px;
@@ -267,6 +267,7 @@ textarea.textBox::placeholder {
 }
 .color {
     border-radius: 150px;
+    width: 170px;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -334,11 +335,11 @@ textarea.color-code {
     overflow: hidden;
     text-transform: uppercase;
     text-align: center;
-    width: 145px;
+    width: 115px;
     height: 28px;
     font-size: 28px;
     font-weight: 450;
-    padding: 10px 10px 12px 10px;
+    padding: 10px 10px 15px 10px;
     border-radius: 10px;
     transition: ease 0.2s;
 }
@@ -511,6 +512,9 @@ textarea.color-code {
     .header-below-info-case {
         display: none;
     }
+    .color {
+        width: unset;
+    }
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1024px) {
@@ -567,5 +571,21 @@ textarea.color-code {
     }
     .header-below-info-case {
         display: none;
+    }
+
+    .color {
+        width: 100%;
+    }
+    textarea.color-code {
+        overflow: hidden;
+        text-transform: uppercase;
+        text-align: center;
+        width: 100px;
+        height: 25px;
+        font-size: 25px;
+        font-weight: 450;
+        padding: 10px 10px 12px 10px;
+        border-radius: 10px;
+        transition: ease 0.2s;
     }
 }
