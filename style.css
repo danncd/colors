@@ -301,7 +301,7 @@ textarea.color-code {
 
 .color-code:hover {
     transition: ease 0.2s;
-    background-color: rgba(0, 0, 0, 0.15);
+    background-color: rgba(0, 0, 0, 0.10);
 }
 .copy-toast {
     visibility: hidden;

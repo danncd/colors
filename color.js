@@ -23,6 +23,9 @@ resetButton.addEventListener("click", function() {
         resetButton.textContent = "Sure?";
     } else {
         window.location.href = "https://colxrs.haocdan.com";
+        localStorage.removeItem('textBoxContent');
+        localStorage.removeItem('colorContent');
+        localStorage.removeItem('currentPath');
     }
 });
 
@@ -129,11 +132,14 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 function getRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
     const savedContent = localStorage.getItem('textBoxContent');
-
     if (savedContent && isValidHexColor(savedContent)) {
         const color = generateRandomComplementaryColor(savedContent);
-
         if (!mode) {
             const rgb = hexToRgb(color);
             const pastelColor = rgbToHex(
@@ -146,9 +152,9 @@ function getRandomColor() {
             return color;
         }
     } else {
-        const randomColor = generateRandomColor();
         if (!mode) {
-            const rgb = hexToRgb(randomColor);
+
+            const rgb = hexToRgb(color);
             const pastelColor = rgbToHex(
                 Math.min(255, rgb.r + 120),
                 Math.min(255, rgb.g + 120),
@@ -156,7 +162,7 @@ function getRandomColor() {
             );
             return pastelColor;
         } else {
-            return randomColor;
+            return color;
         }
     }
 }
