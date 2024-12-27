@@ -367,10 +367,12 @@ textarea.color-code {
 }
 
 .generate button {
+    cursor: pointer;
     font-size: 25px;
     font-weight: 450;
     padding: 6px 50px 6px 50px;
     border-radius: 10px;
+    width: 70%;
 
     color: #32B3A8;
     background-color: #EFFBFA;
@@ -425,7 +427,7 @@ textarea.color-code {
     .generate {
         display: flex;
     }
-    .lock-button, .undo {
+    .lock-button, .undo, .copy-button {
         opacity: 1;
         visibility: visible;
     }
@@ -458,7 +460,7 @@ textarea.color-code {
         justify-content: center;
         margin: 0;
     }
-    .lock-button, .undo {
+    .lock-button, .undo, .copy-button {
         opacity: 1;
         visibility: visible;
     }
