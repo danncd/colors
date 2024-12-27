@@ -145,27 +145,11 @@ function getRandomColor() {
     }
     const savedContent = localStorage.getItem('textBoxContent');
     if (savedContent && isValidHexColor(savedContent)) {
-        const falseIndex = randomFalseIndex();
-        if (falseIndex !== -1) {
-            let colorToUse;
-            if (Math.random() < 0.5) {
-                colorToUse = savedContent;
-            } else {
-                colorToUse = colorCode[falseIndex].value;
-            }
-            const color = generateRandomComplementaryColor(colorToUse);
-            if (!mode) {
-                return convertPastel(color);
-            } else {
-                return color;
-            }
+        const color = generateRandomComplementaryColor(savedContent);
+        if (!mode) {
+            return convertPastel(color);
         } else {
-            const color = generateRandomComplementaryColor(savedContent);
-            if (!mode) {
-                return convertPastel(color);
-            } else {
-                return color;
-            }
+            return color;
         }
     } else {
         if (!mode) {
