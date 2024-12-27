@@ -301,6 +301,10 @@ button {
     .generate {
         display: flex;
     }
+    .lock-button, .undo {
+        opacity: 1;
+        visibility: visible;
+    }
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1024px) {
@@ -323,5 +327,9 @@ button {
         align-items: center;
         justify-content: center;
         margin: 0;
+    }
+    .lock-button, .undo {
+        opacity: 1;
+        visibility: visible;
     }
 }
