@@ -21,6 +21,9 @@ const popup = document.querySelector('.generate-color-around-info-popup');
 resetButton.addEventListener("click", function() {
     if (resetButton.textContent === "Reset") {
         resetButton.textContent = "Sure?";
+        resetButton.style.color = '#DD3549';
+        resetButton.style.backgroundColor = '#FCEEEF';
+        resetButton.style.border = '2px solid #DD3549';
     } else {
         window.location.href = "https://colxrs.haocdan.com";
         localStorage.removeItem('textBoxContent');
@@ -32,6 +35,9 @@ resetButton.addEventListener("click", function() {
 document.addEventListener("click", function(event) {
     if (!resetButton.contains(event.target) && resetButton.textContent === "Sure?") {
         resetButton.textContent = "Reset";
+        resetButton.style.color = '#32B3A8';
+        resetButton.style.backgroundColor = '#EFFBFA';
+        resetButton.style.border = '2px solid #32B3A8';
     }
 });
 image.addEventListener('mouseenter', () => {
