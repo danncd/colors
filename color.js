@@ -88,8 +88,13 @@ function randomizeColors() {
             colorCode[index].textContent = newColor;
             if (isColorTooDark(newColor)) {
                 colorCode[index].style.color = 'white';
+                undoButtons[index].classList.add('white');
+                lockButtons[index].classList.add('white');
+
             } else {
                 colorCode[index].style.color = 'black';
+                undoButtons[index].classList.remove('white');
+                lockButtons[index].classList.add('white');
             }
         }
     });

@@ -161,7 +161,9 @@ button {
 .undo img{
     width: 30px;
 }
-
+.undo img.white {
+    filter: invert(1);
+}
 .lock-button {
     font-size: 25px;
 }
@@ -170,6 +172,9 @@ button {
     width: 30px;
 }
 
+.lock-button img.white {
+    filter: invert(1);
+}
 .color-code {
     font-size: 30px;
     font-weight: 450;
@@ -294,6 +299,9 @@ button {
         width: 20px;
     }
 
+    .color img.white {
+        filter: invert(1);
+    }
     .color button {
         font-size: 25px;
     }
@@ -319,6 +327,9 @@ button {
     }
     .color img{
         width: 20px;
+    }
+    .color img.white {
+        filter: invert(1);
     }
     .color button {
         font-size: 25px;
