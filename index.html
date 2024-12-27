@@ -9,7 +9,7 @@
 <body>
     <div class="header">
         <div class="logo">
-            <a href="/"></a><h1>COLXRS</h1></a>
+            <a href="/"><h1>COLXRS</h1></a>
         </div>
         <div class="header-info">
             <h2>Random color generator</h2>
@@ -84,13 +84,10 @@
         <button id="generate">Generate</button>
     </div>
     <script>
-        // Redirection logic should happen first, before any other scripts are executed.
         window.addEventListener('DOMContentLoaded', () => {
             const currentPath = window.location.pathname;
-            // Redirect to the desired page if there is a path
             if (currentPath !== "/") {
-                // Redirect to the main page
-                window.location.href = "https://colxrs.haocdan.com";  // Customize the URL as needed
+                window.location.href = "https://colxrs.haocdan.com";
             } else {
                 console.log("You are on the homepage.");
             }
