@@ -145,32 +145,63 @@ function getRandomColor() {
     }
     const savedContent = localStorage.getItem('textBoxContent');
     if (savedContent && isValidHexColor(savedContent)) {
-        const color = generateRandomComplementaryColor(savedContent);
-        if (!mode) {
-            const rgb = hexToRgb(color);
-            const pastelColor = rgbToHex(
-                Math.min(255, rgb.r + 120),
-                Math.min(255, rgb.g + 120),
-                Math.min(255, rgb.b + 120)
-            );
-            return pastelColor;
+        const falseIndex = randomFalseIndex();
+        if (falseIndex !== -1) {
+            let colorToUse;
+            if (Math.random() < 0.5) {
+                colorToUse = savedContent;
+            } else {
+                colorToUse = colorCode[falseIndex].value;
+            }
+            const color = generateRandomComplementaryColor(colorToUse);
+            if (!mode) {
+                return convertPastel(color);
+            } else {
+                return color;
+            }
         } else {
-            return color;
+            const color = generateRandomComplementaryColor(savedContent);
+            if (!mode) {
+                return convertPastel(color);
+            } else {
+                return color;
+            }
         }
     } else {
         if (!mode) {
+            if (unlocked.some(status => !status)) {
+                let color = colorCode[randomFalseIndex()].value;
 
-            const rgb = hexToRgb(color);
-            const pastelColor = rgbToHex(
-                Math.min(255, rgb.r + 120),
-                Math.min(255, rgb.g + 120),
-                Math.min(255, rgb.b + 120)
-            );
-            return pastelColor;
+                return convertPastel(generateRandomComplementaryColor(color));
+            } else {
+                return convertPastel(color);
+            }
         } else {
-            return color;
+            if (unlocked.some(status => !status)) {
+                let color = colorCode[randomFalseIndex()].value;
+                return generateRandomComplementaryColor(color);
+            } else {
+                return color;
+            }
         }
     }
+}
+
+function randomFalseIndex() {
+    let falseIndices = unlocked
+        .map((value, index) => value === false ? index : -1)
+        .filter(index => index !== -1);
+    let randomFalseIndex = falseIndices[Math.floor(Math.random() * falseIndices.length)];
+    return randomFalseIndex;
+}
+function convertPastel(color) {
+    const rgb = hexToRgb(color);
+    const pastelColor = rgbToHex(
+        Math.min(245, rgb.r + 55),
+        Math.min(245, rgb.g + 55),
+        Math.min(245, rgb.b + 55)
+    );
+    return pastelColor;
 }
 
 function hexToRgb(hex) {
@@ -432,6 +463,9 @@ textBox.addEventListener('input', () => {
 });
 
 window.addEventListener('DOMContentLoaded', () => {
+    localStorage.removeItem('textBoxContent');
+    localStorage.removeItem('colorContent');
+    localStorage.removeItem('currentPath');
     setColorsFromUrl();
 });
 
