@@ -105,22 +105,55 @@ button {
 }
 
 .generate-color-around {
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 0px 20px 0px 20px;
 }
+
+.generate-color-around-circle {
+    display: flex;
+    padding: 8px;
+    border-radius: 5px;
+    background-color: #b8b8b8;
+    border: 2px solid #b8b8b8;
+    margin: 15px;
+}
+
 textarea {
-    width: 150px;
-    height: 30px;
-    margin: 10px;
-    font-size: 30px;
+    overflow: hidden;
+    width: 125px;
+    height: 25px;
+    margin: 0;
+    font-size: 20px;
     text-align: center;
     justify-content: center;
     align-items: center;
-    border: 2px solid #ccc;
+    border: 2px solid #b8b8b8;
+    border-radius: 10px;
     resize: none;
 }
 
+#textBox {
+    height: 22px;  /* Height of the textarea */
+}
+
+textarea::placeholder {
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    color: #888;
+}
+
+.generate-color-around-info {
+    display: flex;
+    justify-content: center;
+    margin: 0px 0px 0px 15px;
+}
+
+.generate-color-around-info img{
+    width: 20px;
+}
 .spacebar-info {
     height: 100%;
     display: flex;

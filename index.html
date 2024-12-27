@@ -23,7 +23,9 @@
             <h2>Generate new colors by pressing the space bar.</h2>
         </div>
         <div class="generate-color-around">
-            <textarea id="textBox" placeholder="Write something here..."></textarea>
+            <div id="generate-color-around-circle" class="generate-color-around-circle"></div>
+            <textarea id="textBox" placeholder="color-code"></textarea>
+            <div class="generate-color-around-info"><img src="images/info.png" alt=""></div>
         </div>
     </div>
     <div class="palette">
@@ -88,14 +90,14 @@
         <button id="generate">Generate</button>
     </div>
     <script>
-        /*window.addEventListener('DOMContentLoaded', () => {
+        window.addEventListener('DOMContentLoaded', () => {
             const currentPath = window.location.pathname;
             if (currentPath !== "/") {
                 window.location.href = "https://colxrs.haocdan.com";
             } else {
                 console.log("You are on the homepage.");
             }
-        });*/
+        });
     </script>
     <script src="color.js"></script>
 </body>

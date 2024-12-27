@@ -5,11 +5,36 @@ const undoButtons = document.querySelectorAll('.undo');
 const toast = document.getElementById('copy-toast');
 const menuButton = document.getElementById('menu-button');
 const generateButton = document.getElementById('generate');
+const generateAroundCircle = document.getElementById('generate-color-around-circle');
+const textBox = document.getElementById('textBox');
 
 let mode = true;
 
 let unlocked = [true, true, true, true, true];
 let colorStacks = [];
+
+textBox.addEventListener('input', function() {
+    // Save the content of the textarea to localStorage
+    localStorage.setItem('textBoxContent', textBox.value);
+    const savedContent = localStorage.getItem('textBoxContent');
+    if (isValidHexColor(savedContent)) {
+
+        const cleanColor = savedContent.startsWith('#') ? savedContent.slice(1) : savedContent;
+
+        generateAroundCircle.style.backgroundColor = '#' + cleanColor;
+        generateAroundCircle.style.border = `2px solid #${cleanColor}`;
+    } else {
+        generateAroundCircle.style.backgroundColor = '';
+        generateAroundCircle.style.border = ``;
+    }
+});
+
+function isValidHexColor(color) {
+    const cleanColor = color.startsWith('#') ? color.slice(1) : color;
+
+    const hexColorRegex = /^[0-9A-F]{6}$/i;
+    return hexColorRegex.test(cleanColor);
+}
 
 colorCode.forEach((colorButton, index) => {
     const initialColor = colorButton.textContent.trim() || colors[index].style.backgroundColor;
@@ -32,7 +57,22 @@ function getRandomColor() {
     for (let i = 0; i < 6; i++) {
         color += letters[Math.floor(Math.random() * 16)];
     }
-    if (!mode) {
+    const savedContent = localStorage.getItem('textBoxContent');
+    if (isValidHexColor(savedContent)) {
+        const color = generateRandomComplementaryColor(savedContent);
+        if (!mode) {
+            const rgb = hexToRgb(color);
+            const pastelColor = rgbToHex(
+                Math.min(255, rgb.r + 120),
+                Math.min(255, rgb.g + 120),
+                Math.min(255, rgb.b + 120)
+            );
+            return pastelColor;
+        } else {
+            return color;
+        }
+    } else if (!mode) {
+
         const rgb = hexToRgb(color);
         const pastelColor = rgbToHex(
             Math.min(255, rgb.r + 120),
@@ -61,6 +101,107 @@ function rgbToHex(r, g, b) {
 function toHex(n) {
     const hex = n.toString(16);
     return hex.length === 1 ? '0' + hex : hex;
+}
+
+function shiftHue(r, g, b, shift) {
+    const hsl = rgbToHsl(r, g, b);
+    hsl.h = (hsl.h + shift) % 360;
+    return hslToRgb(hsl.h, hsl.s, hsl.l);
+}
+
+function rgbToHsl(r, g, b) {
+    r /= 255;
+    g /= 255;
+    b /= 255;
+    const max = Math.max(r, g, b);
+    const min = Math.min(r, g, b);
+    let h = 0;
+    let s = 0;
+    let l = (max + min) / 2;
+
+    if (max !== min) {
+        const d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+        switch (max) {
+            case r:
+                h = (g - b) / d + (g < b ? 6 : 0);
+                break;
+            case g:
+                h = (b - r) / d + 2;
+                break;
+            case b:
+                h = (r - g) / d + 4;
+                break;
+        }
+        h /= 6;
+    }
+
+    return { h: h * 360, s, l };
+}
+
+function hslToRgb(h, s, l) {
+    let r, g, b;
+
+    h /= 360;
+    s = s || 0;
+    l = l || 0;
+
+    const temp1 = l < 0.5 ? l * (1 + s) : l + s - l * s;
+    const temp2 = 2 * l - temp1;
+
+    function hueToRgb(p, q, t) {
+        if (t < 0) t += 1;
+        if (t > 1) t -= 1;
+        if (t < 1 / 6) return p + (q - p) * 6 * t;
+        if (t < 1 / 2) return q;
+        if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+        return p;
+    }
+
+    r = hueToRgb(temp2, temp1, h + 1 / 3);
+    g = hueToRgb(temp2, temp1, h);
+    b = hueToRgb(temp2, temp1, h - 1 / 3);
+
+    return { r: Math.round(r * 255), g: Math.round(g * 255), b: Math.round(b * 255) };
+}
+function generateRandomComplementaryColor(baseColorHex) {
+    const baseColorRgb = hexToRgb(baseColorHex);
+    const baseColorHsl = rgbToHsl(baseColorRgb.r, baseColorRgb.g, baseColorRgb.b);
+
+    let newColorHex;
+    let newColorHsl;
+    let newColorRgb;
+
+    do {
+        // Generate random variations for hue, saturation, and lightness
+        const randomHueShift = Math.floor(Math.random() * 360) - 180; // Random hue shift between -180 to 180 degrees
+        const randomSaturationShift = Math.random() * 0.5 - 0.25;  // Random saturation shift (-0.25 to 0.25)
+        const randomLightnessShift = Math.random() * 0.5 - 0.25;   // Random lightness shift (-0.25 to 0.25)
+
+        // Generate the new HSL color with random variations
+        const newHue = (baseColorHsl.h + randomHueShift) % 360;
+        const newSaturation = Math.min(1, Math.max(0, baseColorHsl.s + randomSaturationShift));
+        const newLightness = Math.min(1, Math.max(0, baseColorHsl.l + randomLightnessShift));
+
+        newColorHsl = { h: newHue, s: newSaturation, l: newLightness };
+
+        // Convert HSL to RGB and then to HEX
+        newColorRgb = hslToRgb(newColorHsl.h, newColorHsl.s, newColorHsl.l);
+        newColorHex = rgbToHex(newColorRgb.r, newColorRgb.g, newColorRgb.b);
+
+        // Ensure the new color is not too similar to the base color (Euclidean distance check)
+    } while (isColorTooClose(baseColorRgb, newColorRgb));
+
+    return newColorHex;  // Return the new random complementary color
+}
+
+function isColorTooClose(color1, color2) {
+    const distance = Math.sqrt(
+        Math.pow(color1.r - color2.r, 2) +
+        Math.pow(color1.g - color2.g, 2) +
+        Math.pow(color1.b - color2.b, 2)
+    );
+    return distance < 50;  // Threshold for "too close" (can adjust this value)
 }
 
 function isColorTooDark(hex) {
@@ -207,6 +348,9 @@ function setColorsFromUrl(path) {
         });
     }
 }
+textBox.addEventListener('input', () => {
+    localStorage.setItem('textBoxContent', textBox.value);
+});
 
 window.addEventListener('DOMContentLoaded', () => {
     setColorsFromUrl();
