@@ -1,23 +1,19 @@
-const colors = document.querySelectorAll('.color');  // Color divs
-const colorCode = document.querySelectorAll('.color-code');  // Color code buttons
-const lockButtons = document.querySelectorAll('.lock-button');  // Lock buttons
+const colors = document.querySelectorAll('.color');
+const colorCode = document.querySelectorAll('.color-code');
+const lockButtons = document.querySelectorAll('.lock-button');
 const undoButtons = document.querySelectorAll('.undo');
 const toast = document.getElementById('copy-toast');
 const menuButton = document.getElementById('menu-button');
-const generateButton = document.getElementById('generate')
+const generateButton = document.getElementById('generate');
 
 let mode = true;
 
-let unlocked = [true, true, true, true, true];  // Keep track of whether the colors are locked
+let unlocked = [true, true, true, true, true];
 let colorStacks = [];
 
-let currentURL = window.location.pathname;
-let path = currentURL.substring(1);
-
 colorCode.forEach((colorButton, index) => {
-    // Get the initial color value (from the textContent or style attribute)
     const initialColor = colorButton.textContent.trim() || colors[index].style.backgroundColor;
-    colorStacks.push([initialColor]);  // Push the initial color to the stack for this div
+    colorStacks.push([initialColor]);
 });
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -38,21 +34,17 @@ function getRandomColor() {
     }
     if (!mode) {
         const rgb = hexToRgb(color);
-
-        // Convert the color to pastel by adding a factor of lightness to each RGB component
         const pastelColor = rgbToHex(
             Math.min(255, rgb.r + 120),
             Math.min(255, rgb.g + 120),
             Math.min(255, rgb.b + 120)
         );
-
         return pastelColor;
     } else {
         return color;
     }
 }
 
-// Function to convert hex to RGB
 function hexToRgb(hex) {
     hex = hex.replace('#', '');
     const r = parseInt(hex.substring(0, 2), 16);
@@ -62,55 +54,65 @@ function hexToRgb(hex) {
     return { r, g, b };
 }
 
-// Function to convert RGB to hex
 function rgbToHex(r, g, b) {
     return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
 }
 
-// Helper function to convert RGB value to hex
 function toHex(n) {
     const hex = n.toString(16);
     return hex.length === 1 ? '0' + hex : hex;
 }
 
+function isColorTooDark(hex) {
+    const { r, g, b } = hexToRgb(hex);
+    const colorLuminance = luminance(r, g, b);
+    const threshold = 0.5;
 
-// Update the colors and the URL hash
+    return colorLuminance < threshold;
+}
+
+function luminance(r, g, b) {
+    const rgb = [r, g, b].map(function (x) {
+        x /= 255;
+        return (x <= 0.03928) ? x / 12.92 : Math.pow((x + 0.055) / 1.055, 2.4);
+    });
+    return 0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2];
+}
+
 function randomizeColors() {
     colors.forEach((colorDiv, index) => {
         if (unlocked[index]) {
             const newColor = getRandomColor();
-
             colorStacks[index].push(newColor);
-
             colorDiv.style.backgroundColor = newColor;
             colorCode[index].textContent = newColor;
+            if (isColorTooDark(newColor)) {
+                colorCode[index].style.color = 'white';
+            } else {
+                colorCode[index].style.color = 'black';
+            }
         }
     });
     updateUrlWithColors();
-
 }
 
-// Get colors from colorCode buttons
 function getColors() {
     const colorsList = [];
     colors.forEach((colorButton) => {
         const color = colorButton.querySelector('.color-code').textContent.trim();
-        const colorWithoutHash = color.slice(1);  // Remove the '#' from the color code
+        const colorWithoutHash = color.slice(1);
         colorsList.push(colorWithoutHash);
     });
     return colorsList;
 }
 
-
-// Update the URL hash with the colors
 function updateUrlWithColors() {
     const colorsList = getColors();
-    const colorString = colorsList.join('-');  // Join color hex codes with a hyphen
+    const colorString = colorsList.join('-');
     const newUrl = `${window.location.origin}/${colorString}`;
-    history.pushState(null, '', newUrl);  // Update the URL without reloading the page
+    history.pushState(null, '', newUrl);
 }
 
-// Lock/unlock colors
 lockButtons.forEach((button, index) => {
     button.addEventListener("click", function () {
         unlocked[index] = !unlocked[index];
@@ -139,17 +141,11 @@ undoButtons.forEach((button, index) => {
 
 colorCode.forEach((button, index) => {
     button.addEventListener("click", function() {
-        // Get the color code text content of the corresponding colorCode[index]
         const color = colorCode[index].textContent.trim();
 
-        // Copy the color code to the clipboard
         navigator.clipboard.writeText(color)
             .then(() => {
-
-                // Display the toast (if needed)
                 toast.classList.add('show');
-
-                // Hide the toast after a few seconds
                 setTimeout(() => {
                     toast.classList.remove('show');
                 }, 2000);
@@ -166,7 +162,6 @@ menuButton.addEventListener("click", function() {
         menuButton.classList.remove('setting-default-color');
         menuButton.classList.add('setting-pastel-color');
         menuButton.textContent = 'Pastel';
-
     } else {
         menuButton.classList.remove('setting-pastel-color');
         menuButton.classList.add('setting-default-color');
@@ -179,9 +174,8 @@ generateButton.addEventListener("click", function() {
     randomizeColors();
 });
 
-// Set colors based on URL hash when the page loads
 function setColorsFromUrl(path) {
-    const hash = path.startsWith('/') ? path.substring(1) : path;  // Remove the leading slash if it exists
+    const hash = path.startsWith('/') ? path.substring(1) : path;
     if (hash) {
         const colorArray = hash.split('-');
         colors.forEach((colorDiv, index) => {
@@ -191,14 +185,10 @@ function setColorsFromUrl(path) {
     }
 }
 
-
-
-// Initialize colors from the URL if available
 window.addEventListener('DOMContentLoaded', () => {
     setColorsFromUrl();
 });
 
-// Handle the spacebar for randomizing colors
 document.addEventListener('keydown', function (event) {
     if (event.key === ' ' || event.code === 'Space') {
         event.preventDefault();
