@@ -13,7 +13,7 @@
             <a href="/"><h1>COLXRS</h1></a>
         </div>
         <div class="header-info">
-            <h2>Random color generator</h2>
+            <h2>Random color palette generator</h2>
             <div class="header-info-separator"></div>
             <button id="menu-button" class="color-setting-button setting-default-color">Default</button>
         </div>
@@ -24,8 +24,16 @@
         </div>
         <div class="generate-color-around">
             <div id="generate-color-around-circle" class="generate-color-around-circle"></div>
-            <textarea id="textBox" placeholder="color-code"></textarea>
+            <textarea id="textBox" class="textBox" placeholder="color-code"></textarea>
             <div class="generate-color-around-info"><img src="images/info.png" alt=""></div>
+            <div class="header-info-separator"></div>
+            <button id="reset-button" class="setting-reset-color">Reset</button>
+        </div>
+
+    </div>
+    <div class="generate-color-around-info-popup">
+        <div class="popup-info">
+            <h2>Generate complementary colors based on the color-code.</h2>
         </div>
     </div>
     <div class="palette">
@@ -37,7 +45,10 @@
                 <button class="lock-button">
                     <img src="images/unlocked.png" alt="">
                 </button>
-                <button class="color-code">#FF5C5C</button>
+                <button class="copy-button">
+                    <img src="images/copy-icon.png" alt="">
+                </button>
+                <textarea class="color-code">FF5C5C</textarea>
             </div>
         </div>
         <div class="color palette-2">
@@ -48,7 +59,10 @@
                 <button class="lock-button">
                     <img src="images/unlocked.png" alt="">
                 </button>
-                <button class="color-code">#FFBE5C</button>
+                <button class="copy-button">
+                    <img src="images/copy-icon.png" alt="">
+                </button>
+                <textarea class="color-code">FFBE5C</textarea>
             </div>
         </div>
         <div class="color palette-3">
@@ -59,7 +73,10 @@
                 <button class="lock-button">
                     <img src="images/unlocked.png" alt="">
                 </button>
-                <button class="color-code">#FFFF99</button>
+                <button class="copy-button">
+                    <img src="images/copy-icon.png" alt="">
+                </button>
+                <textarea class="color-code">FFFF99</textarea>
             </div>
         </div>
         <div class="color palette-4">
@@ -70,7 +87,10 @@
                 <button class="lock-button">
                     <img src="images/unlocked.png" alt="">
                 </button>
-                <button class="color-code">#D4EB8F</button>
+                <button class="copy-button">
+                    <img src="images/copy-icon.png" alt="">
+                </button>
+                <textarea class="color-code">D4EB8F</textarea>
             </div>
         </div>
         <div class="color palette-5">
@@ -81,7 +101,10 @@
                 <button class="lock-button">
                     <img src="images/unlocked.png" alt="">
                 </button>
-                <button class="color-code">#A8D685</button>
+                <button class="copy-button">
+                    <img src="images/copy-icon.png" alt="">
+                </button>
+                <textarea class="color-code">A8D685</textarea>
             </div>
         </div>
         <div id="copy-toast" class="copy-toast">HEX Code copied.</div>
@@ -90,14 +113,14 @@
         <button id="generate">Generate</button>
     </div>
     <script>
-        window.addEventListener('DOMContentLoaded', () => {
+       /* window.addEventListener('DOMContentLoaded', () => {
             const currentPath = window.location.pathname;
             if (currentPath !== "/") {
                 window.location.href = "https://colxrs.haocdan.com";
             } else {
                 console.log("You are on the homepage.");
             }
-        });
+        });*/
     </script>
     <script src="color.js"></script>
 </body>

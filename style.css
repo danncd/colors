@@ -8,6 +8,10 @@ html, body {
     -moz-text-size-adjust: none;
 }
 
+textarea {
+    all: unset;
+}
+
 button {
     all: unset;
 }
@@ -83,6 +87,19 @@ button {
     border: 2px solid #71B868;
 }
 
+.setting-reset-color {
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 10px;
+    padding: 6px 12px 6px 12px;
+    text-align: center;
+    width: 70px;
+
+    color: #32B3A8;
+    background-color: #EFFBFA;
+    border: 2px solid #32B3A8;
+}
+
 .setting-pastel-color {
     font-size: 16px;
     font-weight: 500;
@@ -121,11 +138,9 @@ button {
     margin: 15px;
 }
 
-textarea {
+textarea.textBox {
     overflow: hidden;
     width: 125px;
-    height: 25px;
-    margin: 0;
     font-size: 20px;
     text-align: center;
     justify-content: center;
@@ -135,11 +150,12 @@ textarea {
     resize: none;
 }
 
-#textBox {
-    height: 22px;  /* Height of the textarea */
+#textBox.textBox {
+    padding: 3px 0px 1px 0px;
+    height: 25px;  /* Height of the textarea */
 }
 
-textarea::placeholder {
+textarea.textBox::placeholder {
     text-align: center;
     font-family: 'Roboto', sans-serif;
     color: #888;
@@ -151,9 +167,45 @@ textarea::placeholder {
     margin: 0px 0px 0px 15px;
 }
 
-.generate-color-around-info img{
-    width: 20px;
+.generate-color-around-info-popup {
+    position: fixed;
+    display: flex;
+    width: 100%;
+    justify-content: right;
+    z-index: 10;
+    opacity: 0;
+    transition: opacity 0.3s;
 }
+
+.popup-info {
+    margin: 20px;
+    padding: 20px;
+    background-color: #ffffff;
+    width: 220px;
+    border-radius: 10px;
+}
+
+.popup-info h2 {
+    margin: 0;
+    font-weight: 400;
+    font-size: 18px;
+}
+
+.generate-color-around-info-popup.show {
+    opacity: 1;
+    transition: opacity 0.3s;
+    position: fixed;
+    z-index: 10;
+}
+
+/* Optional: Styling for the image */
+.generate-color-around-info img {
+    width: 20px;
+    cursor: pointer; /* Makes it clear that it's interactive */
+}
+
+
+
 .spacebar-info {
     height: 100%;
     display: flex;
@@ -197,15 +249,17 @@ textarea::placeholder {
     margin-bottom: 75px;
 }
 
-.lock-button, .undo {
+.lock-button, .undo, .copy-button {
     opacity: 0;
     visibility: hidden;
 }
 
 .palette-color-content:hover .lock-button,
-.palette-color-content:hover .undo {
+.palette-color-content:hover .undo,
+.palette-color-content:hover .copy-button{
     opacity: 1;
     visibility: visible;
+    cursor: pointer;
 }
 
 .palette-color-content .color-code{
@@ -221,18 +275,26 @@ textarea::placeholder {
 .lock-button {
     font-size: 25px;
 }
-
 .lock-button img {
     width: 30px;
 }
-
+.copy-button img{
+    width: 30px;
+}
+.copy-button img.white {
+    filter: invert(1);
+}
 .lock-button img.white {
     filter: invert(1);
 }
-.color-code {
+textarea.color-code {
+    text-transform: uppercase;
+    text-align: center;
+    width: 145px;
+    height: 30px;
     font-size: 30px;
     font-weight: 450;
-    padding: 10px 15px 10px 15px;
+    padding: 10px 10px 12px 10px;
     border-radius: 10px;
     transition: ease 0.2s;
 }
@@ -367,6 +429,9 @@ textarea::placeholder {
         opacity: 1;
         visibility: visible;
     }
+    .generate-color-around-info-popup {
+        visibility: hidden;
+    }
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1024px) {
@@ -396,5 +461,8 @@ textarea::placeholder {
     .lock-button, .undo {
         opacity: 1;
         visibility: visible;
+    }
+    .generate-color-around-info-popup {
+        visibility: hidden;
     }
 }

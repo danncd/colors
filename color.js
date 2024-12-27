@@ -1,5 +1,6 @@
 const colors = document.querySelectorAll('.color');
 const colorCode = document.querySelectorAll('.color-code');
+const copyButtons = document.querySelectorAll('.copy-button');
 const lockButtons = document.querySelectorAll('.lock-button');
 const undoButtons = document.querySelectorAll('.undo');
 const toast = document.getElementById('copy-toast');
@@ -7,26 +8,102 @@ const menuButton = document.getElementById('menu-button');
 const generateButton = document.getElementById('generate');
 const generateAroundCircle = document.getElementById('generate-color-around-circle');
 const textBox = document.getElementById('textBox');
+const resetButton = document.getElementById('reset-button');
 
 let mode = true;
 
 let unlocked = [true, true, true, true, true];
 let colorStacks = [];
 
+const image = document.querySelector('.generate-color-around-info img');
+const popup = document.querySelector('.generate-color-around-info-popup');
+
+resetButton.addEventListener("click", function() {
+    if (resetButton.textContent === "Reset") {
+        resetButton.textContent = "Sure?";
+    } else {
+        window.location.href = "https://colxrs.haocdan.com";
+    }
+});
+
+document.addEventListener("click", function(event) {
+    if (!resetButton.contains(event.target) && resetButton.textContent === "Sure?") {
+        resetButton.textContent = "Reset";
+    }
+});
+image.addEventListener('mouseenter', () => {
+    popup.classList.add('show');
+});
+image.addEventListener('mouseleave', () => {
+    popup.classList.remove('show');
+});
+
 textBox.addEventListener('input', function() {
-    // Save the content of the textarea to localStorage
-    localStorage.setItem('textBoxContent', textBox.value);
+    let currentValue = textBox.value;
+
+    if (currentValue.startsWith('#')) {
+        currentValue = currentValue.slice(1);
+    }
+
+    currentValue = currentValue.replace(/[^0-9A-Fa-f]/g, '').slice(0, 6);
+
+    textBox.value = currentValue;
+
+    localStorage.setItem('textBoxContent', currentValue);
+
     const savedContent = localStorage.getItem('textBoxContent');
+
     if (isValidHexColor(savedContent)) {
-
-        const cleanColor = savedContent.startsWith('#') ? savedContent.slice(1) : savedContent;
-
-        generateAroundCircle.style.backgroundColor = '#' + cleanColor;
-        generateAroundCircle.style.border = `2px solid #${cleanColor}`;
+        generateAroundCircle.style.backgroundColor = '#' + savedContent;
+        generateAroundCircle.style.border = `2px solid #${savedContent}`;
     } else {
         generateAroundCircle.style.backgroundColor = '';
         generateAroundCircle.style.border = ``;
     }
+
+});
+
+
+
+textBox.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+    }
+});
+
+colorCode.forEach((button, index) => {
+    button.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+        }
+    });
+});
+
+colorCode.forEach((button, index) => {
+    button.addEventListener('input', function () {
+        let inputValue = colorCode[index].value;
+
+        if (inputValue.startsWith('#')) {
+            inputValue = inputValue.slice(1);
+        }
+        inputValue = inputValue.replace(/[^0-9A-Fa-f]/g, '').slice(0, 6);
+
+        colorCode[index].value = inputValue;
+
+        localStorage.setItem('colorContent', inputValue);
+        const savedContent = localStorage.getItem('colorContent');
+
+        // Ensure valid hex color before applying
+        if (savedContent.length === 6 && isValidHexColor(savedContent)) {
+            colorStacks[index].push('#' + savedContent);
+            colors[index].style.backgroundColor = '#' + savedContent
+            changeIfDark(savedContent, index);
+            updateUrlWithColors();
+        } else {
+            colors[index].style.backgroundColor = '';
+            changeIfDark(colors[index].style.backgroundColor, index);
+        }
+    });
 });
 
 function isValidHexColor(color) {
@@ -37,7 +114,7 @@ function isValidHexColor(color) {
 }
 
 colorCode.forEach((colorButton, index) => {
-    const initialColor = colorButton.textContent.trim() || colors[index].style.backgroundColor;
+    let initialColor = '#' + colorButton.value;
     colorStacks.push([initialColor]);
 });
 
@@ -71,7 +148,8 @@ function getRandomColor() {
         } else {
             return color;
         }
-    } else if (!mode) {
+    }
+    if (!mode) {
 
         const rgb = hexToRgb(color);
         const pastelColor = rgbToHex(
@@ -219,25 +297,30 @@ function luminance(r, g, b) {
     });
     return 0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2];
 }
+function changeIfDark(color, index) {
+    if (isColorTooDark(color)) {
+        colorCode[index].style.color = 'white';
+        lockButtons[index].querySelector('img').classList.add('white');
+        undoButtons[index].querySelector('img').classList.add('white');
+        copyButtons[index].querySelector('img').classList.add('white');
 
+    } else {
+        colorCode[index].style.color = 'black';
+        lockButtons[index].querySelector('img').classList.remove('white');
+        undoButtons[index].querySelector('img').classList.remove('white');
+        copyButtons[index].querySelector('img').classList.remove('white');
+
+    }
+}
 function randomizeColors() {
     colors.forEach((colorDiv, index) => {
         if (unlocked[index]) {
             const newColor = getRandomColor();
             colorStacks[index].push(newColor);
             colorDiv.style.backgroundColor = newColor;
-            colorCode[index].textContent = newColor;
+            colorCode[index].value = newColor.slice(1);
 
-            if (isColorTooDark(newColor)) {
-                colorCode[index].style.color = 'white';
-                lockButtons[index].querySelector('img').classList.add('white');
-                undoButtons[index].querySelector('img').classList.add('white');
-
-            } else {
-                colorCode[index].style.color = 'black';
-                lockButtons[index].querySelector('img').classList.remove('white');
-                undoButtons[index].querySelector('img').classList.remove('white');
-            }
+            changeIfDark(newColor, index);
         }
     });
     updateUrlWithColors();
@@ -246,7 +329,7 @@ function randomizeColors() {
 function getColors() {
     const colorsList = [];
     colors.forEach((colorButton) => {
-        const color = colorButton.querySelector('.color-code').textContent.trim();
+        const color = colorButton.querySelector('.color-code').value.trim();
         const colorWithoutHash = color.slice(1);
         colorsList.push(colorWithoutHash);
     });
@@ -271,12 +354,7 @@ lockButtons.forEach((button, index) => {
             button.classList.remove('locked');
             button.innerHTML = '<img src="images/locked.png" alt="Lock Icon" />';
         }
-        if (isColorTooDark(colorCode[index].textContent)) {
-            lockButtons[index].querySelector('img').classList.add('white');
-
-        } else {
-            lockButtons[index].querySelector('img').classList.remove('white');
-        }
+        changeIfDark(colorCode[index].value, index);
     });
 });
 
@@ -287,25 +365,16 @@ undoButtons.forEach((button, index) => {
             const previousColor = colorStacks[index].slice(-1)[0];
 
             colors[index].style.backgroundColor = previousColor;
-            colorCode[index].textContent = previousColor;
+            colorCode[index].value = previousColor.slice(1);
 
-            if (isColorTooDark(colorCode[index].textContent)) {
-                colorCode[index].style.color = 'white';
-                lockButtons[index].querySelector('img').classList.add('white');
-                undoButtons[index].querySelector('img').classList.add('white');
-
-            } else {
-                colorCode[index].style.color = 'black';
-                lockButtons[index].querySelector('img').classList.remove('white');
-                undoButtons[index].querySelector('img').classList.remove('white');
-            }
+            changeIfDark(colorCode[index].value, index);
         }
     });
 });
 
-colorCode.forEach((button, index) => {
+copyButtons.forEach((button, index) => {
     button.addEventListener("click", function() {
-        const color = colorCode[index].textContent.trim();
+        const color = colorCode[index].value.trim();
 
         navigator.clipboard.writeText(color)
             .then(() => {
@@ -344,7 +413,7 @@ function setColorsFromUrl(path) {
         const colorArray = hash.split('-');
         colors.forEach((colorDiv, index) => {
             colorDiv.style.backgroundColor = '#' + colorArray[index];
-            colorCode[index].textContent = '#' + colorArray[index];
+            colorCode[index].value = colorArray[index];
         });
     }
 }
