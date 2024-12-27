@@ -66,7 +66,7 @@ function toHex(n) {
 function isColorTooDark(hex) {
     const { r, g, b } = hexToRgb(hex);
     const colorLuminance = luminance(r, g, b);
-    const threshold = 0.5;
+    const threshold = 0.2;
 
     return colorLuminance < threshold;
 }
