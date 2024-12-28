@@ -493,9 +493,9 @@ textarea.color-code {
 @media only screen and (max-width: 768px) {
 
     .content-case {
-        height: calc(100vh - 140px);
+        height: calc(100vh - 175px);
         min-height: unset;
-        margin-top: 5px;
+        margin-top: 10px;
     }
 
     .case {
@@ -504,7 +504,7 @@ textarea.color-code {
     }
 
     .palette {
-        height: calc(100vh - 150px);
+        height: calc(100vh - 175px);
         background-color: unset;
         margin: 0;
         width: 100%;
