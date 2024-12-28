@@ -529,6 +529,7 @@ textarea.color-code {
 
     .generate {
         display: flex;
+        margin: 0px 20px 0px 20px;
     }
     .lock-button, .undo, .copy-button, .brightness-hover, .adjust-brightness {
         opacity: 1;
@@ -608,6 +609,7 @@ textarea.color-code {
     }
     .generate {
         display: flex;
+        margin: 0px 20px 0px 20px;
     }
     .palette-color-content {
         opacity: 1;
