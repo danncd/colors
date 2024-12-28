@@ -3,6 +3,12 @@ const colorCode = document.querySelectorAll('.color-code');
 const copyButtons = document.querySelectorAll('.copy-button');
 const lockButtons = document.querySelectorAll('.lock-button');
 const undoButtons = document.querySelectorAll('.undo');
+const hoverBrightnessButtons = document.querySelectorAll('.brightness-hover');
+const brightnessBars = document.querySelectorAll('.brightness-bar');
+
+const allColors = document.querySelectorAll('.palette-color-content');
+
+
 const toast = document.getElementById('copy-toast');
 const menuButton = document.getElementById('menu-button');
 const generateButton = document.getElementById('generate');
@@ -17,6 +23,126 @@ let colorStacks = [];
 
 const image = document.querySelector('.generate-color-around-info img');
 const popup = document.querySelector('.generate-color-around-info-popup');
+
+hoverBrightnessButtons.forEach((button, index) => {
+    button.addEventListener("click", function() {
+        brightnessBars[index].classList.add('show');
+
+        const colorContainer = colors[index];
+        const elements = colorContainer.querySelectorAll('*');
+
+        elements.forEach(element => {
+            element.style.visibility = 'visible';
+            element.style.opacity = 1;
+        });
+
+        const shades = brightnessBars[index].querySelectorAll('.shade');
+        const shadows = makeShades(colorCode[index].value, shades.length);
+        shades.forEach((shade, shadeIndex) => {
+            shade.style.backgroundColor = shadows[shadeIndex];
+        });
+    });
+});
+
+function removeBrightnessBarsIfClickedOutside() {
+    const isClickOutsideBrightnessBar = !event.target.closest('.brightness-bar') && !event.target.closest('.brightness-hover');
+
+    if (isClickOutsideBrightnessBar) {
+        // Hide all elements inside .palette-color-content when clicking outside
+        allColors.forEach((colorContainer, index) => {
+            const elements = colorContainer.querySelectorAll('*');
+            elements.forEach(element => {
+                element.style.visibility = ''; // Hide all elements
+                element.style.opacity = '';  // Optionally also set opacity to 0
+            });
+        });
+        brightnessBars.forEach(bar => {
+            bar.classList.remove('show');
+        });
+    }
+}
+document.addEventListener('click', function(event) {
+    // Check if the click is outside of any .brightness-bar
+    removeBrightnessBarsIfClickedOutside();
+});
+brightnessBars.forEach((brightnessBar, index) => {
+    const shades = brightnessBar.querySelectorAll('.shade');
+
+    shades.forEach((shade, shadeIndex) => {
+        shade.addEventListener('click', function() {
+            const rgbShade = window.getComputedStyle(shade).backgroundColor;
+            const rgbValues = rgbShade.match(/\d+/g);
+            const r = parseInt(rgbValues[0], 10);
+            const g = parseInt(rgbValues[1], 10);
+            const b = parseInt(rgbValues[2], 10);
+
+            const hexShade = rgbToHex(r, g, b).substring(1).toUpperCase();
+            colorStacks[index].push('#' + hexShade);
+            colors[index].style.backgroundColor = '#' + hexShade;
+            colorCode[index].value = hexShade;
+
+            changeIfDark(hexShade, index);
+            updateUrlWithColors();
+
+            const colorContainer = allColors[index];
+
+            const elements = colorContainer.querySelectorAll('*');
+            elements.forEach(element => {
+                element.style.visibility = ''
+                element.style.opacity = '';
+            });
+
+            brightnessBars.forEach(bar => {
+                bar.classList.remove('show');
+            });
+        });
+    });
+});
+function makeShades(color, number) {
+    let newColor = color;
+    let shades = [];
+    for (let i = 0; i < number/2-1; i++) {
+        let lighter = makeColor(newColor, 'light');
+        shades.push(lighter);
+        newColor = lighter;
+    }
+    shades.reverse();
+    shades.push(`#${color}`);
+    newColor = shades[shades.length - 1];
+    for (let i = 0; i < number/2; i++) {
+        let darker = makeColor(newColor, 'dark');
+        shades.push(darker);
+        newColor = darker;
+    }
+
+    return shades;
+}
+
+function makeColor(color, shade) {
+    if (isValidHexColor(color)) {
+        // Convert hex to RGB
+        let rgb = hexToRgb(color);
+
+        // Convert RGB to HSL
+        let hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
+
+        // Increase the lightness slightly to make it lighter (add a smaller value)
+        if (shade === 'light') {
+            hsl.l = Math.min(1, hsl.l + 0.03);
+        } else if (shade === 'dark') {
+            hsl.l = Math.max(0, hsl.l - 0.03);
+        }
+        // Convert HSL back to RGB
+        let newRgb = hslToRgb(hsl.h, hsl.s, hsl.l);
+
+        // Convert RGB to hex
+        let newColor = rgbToHex(newRgb.r, newRgb.g, newRgb.b);
+
+        // Update the "dark" or "light" check (adjust text color)
+        return newColor;
+    }
+}
+
 
 resetButton.addEventListener("click", function() {
     if (resetButton.textContent === "Reset") {
@@ -193,7 +319,6 @@ function hexToRgb(hex) {
     const r = parseInt(hex.substring(0, 2), 16);
     const g = parseInt(hex.substring(2, 4), 16);
     const b = parseInt(hex.substring(4, 6), 16);
-
     return { r, g, b };
 }
 
@@ -204,12 +329,6 @@ function rgbToHex(r, g, b) {
 function toHex(n) {
     const hex = n.toString(16);
     return hex.length === 1 ? '0' + hex : hex;
-}
-
-function shiftHue(r, g, b, shift) {
-    const hsl = rgbToHsl(r, g, b);
-    hsl.h = (hsl.h + shift) % 360;
-    return hslToRgb(hsl.h, hsl.s, hsl.l);
 }
 
 function rgbToHsl(r, g, b) {
@@ -265,8 +384,14 @@ function hslToRgb(h, s, l) {
     g = hueToRgb(temp2, temp1, h);
     b = hueToRgb(temp2, temp1, h - 1 / 3);
 
-    return { r: Math.round(r * 255), g: Math.round(g * 255), b: Math.round(b * 255) };
+    // Ensure RGB values are clamped to the range [0, 255] and rounded
+    return {
+        r: Math.round(Math.min(Math.max(r * 255, 0), 255)),
+        g: Math.round(Math.min(Math.max(g * 255, 0), 255)),
+        b: Math.round(Math.min(Math.max(b * 255, 0), 255))
+    };
 }
+
 function generateRandomComplementaryColor(baseColorHex) {
     const baseColorRgb = hexToRgb(baseColorHex);
     const baseColorHsl = rgbToHsl(baseColorRgb.r, baseColorRgb.g, baseColorRgb.b);
@@ -323,18 +448,30 @@ function luminance(r, g, b) {
     return 0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2];
 }
 function changeIfDark(color, index) {
+    const images = colors[index].querySelectorAll('img');
+    const brightnessImages = colors[index].querySelectorAll('.adjust-brightness img');
+
     if (isColorTooDark(color)) {
         colorCode[index].style.color = 'white';
-        lockButtons[index].querySelector('img').classList.add('white');
-        undoButtons[index].querySelector('img').classList.add('white');
-        copyButtons[index].querySelector('img').classList.add('white');
+        images.forEach(img => {
+            img.classList.add('white');
+        });
+        brightnessImages.forEach(img => {
+            img.classList.add('white');
+            console.log('Adding white to brightness image', img);
+        });
+        brightnessImages.forEach(img => {
+            console.log('Brightness image classes:', img.classList);
+        });
 
     } else {
         colorCode[index].style.color = 'black';
-        lockButtons[index].querySelector('img').classList.remove('white');
-        undoButtons[index].querySelector('img').classList.remove('white');
-        copyButtons[index].querySelector('img').classList.remove('white');
-
+        images.forEach(img => {
+            img.classList.remove('white');
+        });
+        brightnessImages.forEach(img => {
+            img.classList.remove('white');
+        });
     }
 }
 function randomizeColors() {
@@ -455,6 +592,7 @@ window.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('keydown', function (event) {
     if (event.key === ' ' || event.code === 'Space') {
         event.preventDefault();
+        removeBrightnessBarsIfClickedOutside();
         randomizeColors();
     }
 });
