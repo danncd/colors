@@ -144,20 +144,27 @@ button {
 
 .footer-case {
     width: 100%;
-    background-color: #ffffff;
     height: 60px;
+    background-color: #ffffff;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.06);
 }
 
 .footer {
     width: 1050px;
+    height: 60px;
+    background-color: #ffffff;
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
 }
+
+.creator-info{
+    margin: 0 20px 0 20px;
+}
+
 .generate-color-around {
     position: relative;
     height: 100%;
