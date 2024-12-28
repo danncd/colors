@@ -355,8 +355,7 @@ function getColors() {
     const colorsList = [];
     colors.forEach((colorButton) => {
         const color = colorButton.querySelector('.color-code').value.trim();
-        const colorWithoutHash = color.slice(1);
-        colorsList.push(colorWithoutHash);
+        colorsList.push(color);
     });
     return colorsList;
 }
