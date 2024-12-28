@@ -501,6 +501,7 @@ function getColors() {
     return colorsList;
 }
 
+
 function updateUrlWithColors() {
     const colorsList = getColors();
     const colorString = colorsList.join('-');
