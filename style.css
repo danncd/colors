@@ -142,7 +142,25 @@ button {
     align-items: center;
 }
 
+
+.footer-case {
+    width: 100%;
+    background-color: #ffffff;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.06);
+}
+
+.footer {
+    width: 1050px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 .generate-color-around {
+    position: relative;
     height: 100%;
     display: flex;
     justify-content: center;
@@ -182,28 +200,27 @@ textarea.textBox::placeholder {
     color: #888;
 }
 
-.generate-color-around-info {
-    display: flex;
-    justify-content: center;
-    margin: 0;
-}
 
-.generate-color-around-info-popup {
-    position: fixed;
-    display: flex;
-    width: 100%;
-    justify-content: right;
-    z-index: 10;
-    opacity: 0;
+.popup-info.show {
+    opacity: 1;
     transition: opacity 0.3s;
+    position: fixed;
+    z-index: 10;
 }
 
 .popup-info {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+
     margin: 20px;
-    padding: 20px;
+    height: 100%;
     background-color: #ffffff;
-    width: 220px;
-    border-radius: 50px;
+    right: 150px;
+    width: calc(100% + 40px);
+    transition: opacity 0.1s ease, visibility 0.1s ease;
 }
 
 .popup-info h2 {
@@ -212,11 +229,11 @@ textarea.textBox::placeholder {
     font-size: 18px;
 }
 
-.generate-color-around-info-popup.show {
-    opacity: 1;
-    transition: opacity 0.3s;
-    position: fixed;
-    z-index: 10;
+.generate-color-around-info {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Optional: Styling for the image */
@@ -240,7 +257,9 @@ textarea.textBox::placeholder {
 }
 
 .content-case {
+    min-height: 625px;
     width: 100%;
+    height: calc(100% - 120px);
     display: flex;
     flex-direction: row;
     align-items: center;

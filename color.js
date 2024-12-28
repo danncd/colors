@@ -21,8 +21,18 @@ let mode = true;
 let unlocked = [true, true, true, true, true];
 let colorStacks = [];
 
-const image = document.querySelector('.generate-color-around-info img');
-const popup = document.querySelector('.generate-color-around-info-popup');
+const infoImage = document.querySelector('.generate-color-around-info img');
+const popupInfo = document.querySelector('.popup-info');
+
+infoImage.addEventListener('mouseenter', () => {
+    popupInfo.style.visibility = 'visible';
+    popupInfo.style.opacity = '1';
+});
+
+infoImage.addEventListener('mouseleave', () => {
+    popupInfo.style.visibility = 'hidden';
+    popupInfo.style.opacity = '0';
+});
 
 hoverBrightnessButtons.forEach((button, index) => {
     button.addEventListener("click", function() {
@@ -165,12 +175,6 @@ document.addEventListener("click", function(event) {
         resetButton.style.backgroundColor = '#EFFBFA';
         resetButton.style.border = '2px solid #32B3A8';
     }
-});
-image.addEventListener('mouseenter', () => {
-    popup.classList.add('show');
-});
-image.addEventListener('mouseleave', () => {
-    popup.classList.remove('show');
 });
 
 textBox.addEventListener('input', function() {
