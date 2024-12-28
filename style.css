@@ -515,6 +515,9 @@ textarea.color-code {
     .color {
         width: unset;
     }
+    .header-case {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.06);
+    }
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1024px) {
@@ -587,5 +590,8 @@ textarea.color-code {
         padding: 10px 10px 12px 10px;
         border-radius: 10px;
         transition: ease 0.2s;
+    }
+    .header-case {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.06);
     }
 }
