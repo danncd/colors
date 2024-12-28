@@ -314,7 +314,7 @@ textarea.textBox::placeholder {
     flex-direction: column;
     gap: 15px;
     align-items: center;
-    z-index: 1;
+    z-index: 1000;
 }
 
 .brightness-bar {
@@ -545,7 +545,7 @@ textarea.color-code {
     .brightness-bar {
         display: flex;           /* Aligns the shades in a row horizontally */
         flex-direction: row;     /* Ensures the shades are arranged horizontally */
-        width: 290px;            /* Sets the width of the brightness bar */
+        width: 250px;            /* Sets the width of the brightness bar */
         height: 60px;            /* Sets the height of the brightness bar */
         position: absolute;      /* Makes the .brightness-bar position relative to .adjust-brightness */
         left: calc(100% + 10px);              /* Position it immediately to the right of the image */
