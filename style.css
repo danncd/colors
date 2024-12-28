@@ -310,20 +310,14 @@ textarea.textBox::placeholder {
     opacity: 1 !important;
 }
 
-.undo img{
-    width: 30px;
+.undo img, .lock-button img, .copy-button img{
+    width: 25px;
 }
 .undo img.white {
     filter: invert(1);
 }
 .lock-button {
     font-size: 25px;
-}
-.lock-button img {
-    width: 30px;
-}
-.copy-button img{
-    width: 30px;
 }
 .copy-button img.white {
     filter: invert(1);

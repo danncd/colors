@@ -458,3 +458,12 @@ document.addEventListener('keydown', function (event) {
         randomizeColors();
     }
 });
+textBox.addEventListener('keydown', function (event) {
+    const savedContent = localStorage.getItem('textBoxContent');
+    if (event.key === 'Enter') {
+        if(isValidHexColor(savedContent)) {
+            event.preventDefault();
+            randomizeColors();
+        }
+    }
+});
