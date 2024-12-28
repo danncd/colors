@@ -263,7 +263,7 @@ textarea.textBox::placeholder {
 }
 
 .content-case {
-    min-height: 625px;
+    min-height: 590px;
     width: 100%;
     height: calc(100% - 120px);
     display: flex;
@@ -490,17 +490,21 @@ textarea.color-code {
     border: 2px solid #32B3A8;
 }
 
-
-@media only screen and (max-width: 768px) and (orientation: portrait) {
+@media only screen and (max-width: 768px) {
 
     .content-case {
-        height: calc(100vh - 120px);
+        height: calc(100vh - 140px);
+        min-height: unset;
+        margin-top: 5px;
     }
+
     .case {
         width: 100%;
         height: 100%;
     }
+
     .palette {
+        height: calc(100vh - 150px);
         background-color: unset;
         margin: 0;
         width: 100%;
@@ -542,17 +546,23 @@ textarea.color-code {
         flex-direction: column;
     }
 
-    .color img{
+    .color img {
         width: 20px;
     }
+
     .color button {
         font-size: 25px;
     }
 
     .generate {
         display: flex;
-        margin: 0px 20px 0px 20px;
+        margin: 0px 20px 20px 20px;
     }
+
+    .generate button {
+        width: 70%;
+    }
+
     .lock-button, .undo, .copy-button, .brightness-hover, .adjust-brightness {
         opacity: 1;
         visibility: visible;
@@ -566,21 +576,22 @@ textarea.color-code {
     }
 
     .brightness-bar {
-        display: flex;           /* Aligns the shades in a row horizontally */
-        flex-direction: row;     /* Ensures the shades are arranged horizontally */
-        width: 250px;            /* Sets the width of the brightness bar */
-        height: 60px;            /* Sets the height of the brightness bar */
-        position: absolute;      /* Makes the .brightness-bar position relative to .adjust-brightness */
-        left: calc(100% + 10px);              /* Position it immediately to the right of the image */
-        top: 50%;                /* Moves the brightness bar to the middle of the container */
+        display: flex; /* Aligns the shades in a row horizontally */
+        flex-direction: row; /* Ensures the shades are arranged horizontally */
+        width: 250px; /* Sets the width of the brightness bar */
+        height: 60px; /* Sets the height of the brightness bar */
+        position: absolute; /* Makes the .brightness-bar position relative to .adjust-brightness */
+        left: calc(100% + 10px); /* Position it immediately to the right of the image */
+        top: 50%; /* Moves the brightness bar to the middle of the container */
         transform: translateY(-50%); /* Offsets the bar by half of its height, centering it vertically */
-        visibility: hidden;      /* Initially hide the brightness bar */
+        visibility: hidden; /* Initially hide the brightness bar */
     }
 
 
     .generate-color-around-info-popup {
         visibility: hidden;
     }
+
     textarea.color-code {
         overflow: hidden;
         text-transform: uppercase;
@@ -593,45 +604,47 @@ textarea.color-code {
         border-radius: 50px;
         transition: ease 0.2s;
     }
+
     .header-below-info-case {
         display: none;
     }
+
     .color {
         width: unset;
     }
+
     .header-case {
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.06);
     }
 }
-
 @media only screen and (min-width: 768px) and (max-width: 1024px) {
     .palette {
         background-color: unset;
-        margin: 0px;
+        margin: 0;
         display: flex;
         width: 100%;
         height: 90%;
         box-shadow: unset;
     }
     .content-case {
-        height: calc(100% - 120px);
+        height: calc(100vh - 140px);
     }
     .case {
         background-color: unset;
         height: unset;
-        width: 150px;
+        width: 140px;
         display: flex;
         align-items: center;
         justify-content: center;
         text-align: center;
-        margin: 10px 20px 10px 20px;
+        margin: 10px 10px 10px 10px;
     }
     .header-below-info {
         display: none;
     }
     .generate {
         display: flex;
-        margin: 0px 20px 0px 20px;
+        margin: 0px 20px 20px 20px;
     }
     .palette-color-content {
         opacity: 1;
@@ -665,5 +678,142 @@ textarea.color-code {
     }
     .header-case {
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.06);
+    }
+}
+@media only screen and (min-width: 1024px) and (max-width: 1366px) {
+    .palette {
+        width: 1050px;
+        margin: 0;
+        display: flex;
+        height: 90%;
+        box-shadow: unset;
+    }
+    .content-case {
+        height: calc(100vh - 140px);
+    }
+    .case {
+        background-color: unset;
+        height: unset;
+        width: 185px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        margin: 10px 10px 10px 10px;
+    }
+    .header-below-info {
+        display: none;
+    }
+    .generate {
+        display: flex;
+        margin: 0px 20px 20px 20px;
+    }
+
+    .generate button {
+        width: 70%;
+    }
+
+    .color img{
+        width: 20px;
+    }
+    .color button {
+        font-size: 25px;
+    }
+    .palette-color-content {
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        opacity: 1;
+        visibility: visible !important;
+    }
+    .lock-button, .undo, .copy-button, .brightness-hover, .adjust-brightness{
+        opacity: 1;
+        visibility: visible;
+    }
+    .generate-color-around-info-popup {
+        visibility: hidden;
+    }
+    .header-below-info-case {
+        display: none;
+    }
+
+    .color {
+        width: 100%;
+    }
+    .header-case {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.06);
+    }
+}
+@media only screen and (max-height: 500px) {
+
+    .content-case {
+        height: calc(100vh - 120px);
+        min-height: unset;
+    }
+
+    .case {
+        width: 100%;
+        height: 13vh;
+        margin: 0;
+    }
+
+    .color {
+        border-radius: unset;
+    }
+    .palette {
+        height: calc(100vh - 140px);
+        margin: 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        box-shadow: unset;
+    }
+
+    .palette-color-content {
+        flex-direction: row;
+    }
+
+
+    textarea.color-code {
+        overflow: hidden;
+        text-transform: uppercase;
+        text-align: center;
+        width: 100px;
+        height: 20px;
+        font-size: 20px;
+        font-weight: 450;
+        padding: 10px 10px 12px 10px;
+        border-radius: 50px;
+        transition: ease 0.2s;
+    }
+
+    .header-below-info-case {
+        display: none;
+    }
+
+    .color {
+        width: unset;
+    }
+
+    .header-case {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.06);
+    }
+
+    .color img {
+        width: 15px;
+    }
+
+    .brightness-bar {
+        display: flex; /* Aligns the shades in a row horizontally */
+        flex-direction: row; /* Ensures the shades are arranged horizontally */
+        width: 250px; /* Sets the width of the brightness bar */
+        height: 40px; /* Sets the height of the brightness bar */
+        position: absolute; /* Makes the .brightness-bar position relative to .adjust-brightness */
+        left: calc(100% + 10px); /* Position it immediately to the right of the image */
+        top: 50%; /* Moves the brightness bar to the middle of the container */
+        transform: translateY(-50%); /* Offsets the bar by half of its height, centering it vertically */
+        visibility: hidden; /* Initially hide the brightness bar */
     }
 }
