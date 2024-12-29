@@ -1,5 +1,5 @@
-<h1>Colxrs</H1>
+# Colxrs
 Random color palette generator.
 
-<h2>Built with</h2>
-[![Built with](https://skillicons.dev/icons?i=html,css,js&perline=10)](https://skillicons.dev)
+## Built with
+[![Built with](https://skillicons.dev/icons?i=js,html,css)](https://skillicons.dev)
