@@ -6,6 +6,7 @@ const undoButtons = document.querySelectorAll('.undo');
 const hoverBrightnessButtons = document.querySelectorAll('.brightness-hover');
 const brightnessBars = document.querySelectorAll('.brightness-bar');
 const currentBrightnessIndicators = document.querySelectorAll('.current-brightness');
+const colorCodeNames = document.querySelectorAll('.color-code-name');
 
 const allColors = document.querySelectorAll('.palette-color-content');
 
@@ -24,32 +25,31 @@ let colorStacks = [];
 
 const infoImage = document.querySelector('.generate-color-around-info img');
 const popupInfo = document.querySelector('.popup-info');
-
-async function getColorName(hex) {
-    const apiUrl = `https://colornames.org/search/json/?hex=${hex}`;
-
-    try {
-        const response = await fetch(apiUrl);
-
-        if (response.status === 403) {
-            throw new Error('Forbidden: Access denied');
-        }
-
-        if (!response.ok) {
-            throw new Error(`Error fetching color name: ${response.statusText}`);
-        }
-
-        const data = await response.json();
-        if (data && data.name) {
-            return data.name;
-        } else {
-            return 'Unknown color';
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        return 'Error fetching color name';
-    }
+function getColorName(hexCode) {
+    var n_match = ntc.name(hexCode);
+    var n_name = n_match[1];
+    return n_name;
 }
+function rgbToHexSingle(rgb) {
+    const rgbValues = rgb.match(/\d+/g); // Extracts the RGB values from the string
+    const r = parseInt(rgbValues[0], 10);
+    const g = parseInt(rgbValues[1], 10);
+    const b = parseInt(rgbValues[2], 10);
+    return `${toHex(r)}${toHex(g)}${toHex(b)}`;
+}
+
+colors.forEach((color, index) => {
+    const bgColor = window.getComputedStyle(color).backgroundColor; // Get the computed background color
+    const hexColor = rgbToHexSingle(bgColor);
+    colorCode[index].value = hexColor;
+    colorCodeNames[index].textContent = getColorName(hexColor);
+});
+window.addEventListener('DOMContentLoaded', () => {
+    localStorage.removeItem('textBoxContent');
+    localStorage.removeItem('colorContent');
+    localStorage.removeItem('currentPath');
+
+});
 
 infoImage.addEventListener('mouseenter', () => {
     popupInfo.style.visibility = 'visible';
@@ -83,7 +83,6 @@ hoverBrightnessButtons.forEach((button, index) => {
         } else {
             currentBrightnessIndicators[index].classList.remove('white');
         }
-        getColorName(colorCode[index].value);
 
     });
 });
@@ -124,6 +123,7 @@ brightnessBars.forEach((brightnessBar, index) => {
             colorStacks[index].push('#' + hexShade);
             colors[index].style.backgroundColor = '#' + hexShade;
             colorCode[index].value = hexShade;
+            colorCodeNames[index].textContent = getColorName(colorCode[index].value);
 
             changeIfDark(hexShade, index);
             updateUrlWithColors();
@@ -269,8 +269,9 @@ colorCode.forEach((button, index) => {
         // Ensure valid hex color before applying
         if (savedContent.length === 6 && isValidHexColor(savedContent)) {
             colorStacks[index].push('#' + savedContent);
-            colors[index].style.backgroundColor = '#' + savedContent
+            colors[index].style.backgroundColor = '#' + savedContent;
             changeIfDark(savedContent, index);
+            colorCodeNames[index].textContent = getColorName(savedContent);
             updateUrlWithColors();
         } else {
             colors[index].style.backgroundColor = '';
@@ -499,6 +500,7 @@ function changeIfDark(color, index) {
         });
         brightnessImages.forEach(img => {
         });
+        colorCodeNames[index].classList.add('white');
 
     } else {
         colorCode[index].style.color = 'black';
@@ -508,6 +510,7 @@ function changeIfDark(color, index) {
         brightnessImages.forEach(img => {
             img.classList.remove('white');
         });
+        colorCodeNames[index].classList.remove('white');
     }
 }
 function randomizeColors() {
@@ -517,6 +520,7 @@ function randomizeColors() {
             colorStacks[index].push(newColor);
             colorDiv.style.backgroundColor = newColor;
             colorCode[index].value = newColor.slice(1);
+            colorCodeNames[index].textContent = getColorName(colorCode[index].value);
 
             changeIfDark(newColor, index);
         }
@@ -532,7 +536,6 @@ function getColors() {
     });
     return colorsList;
 }
-
 
 function updateUrlWithColors() {
     const colorsList = getColors();
@@ -564,6 +567,7 @@ undoButtons.forEach((button, index) => {
 
             colors[index].style.backgroundColor = previousColor;
             colorCode[index].value = previousColor.slice(1);
+            colorCodeNames[index].textContent = getColorName(colorCode[index].value);
 
             changeIfDark(colorCode[index].value, index);
         }
@@ -623,12 +627,6 @@ textBox.addEventListener('input', () => {
     localStorage.setItem('textBoxContent', textBox.value);
 });
 
-window.addEventListener('DOMContentLoaded', () => {
-    localStorage.removeItem('textBoxContent');
-    localStorage.removeItem('colorContent');
-    localStorage.removeItem('currentPath');
-});
-
 document.addEventListener('keydown', function (event) {
     if (event.key === ' ' || event.code === 'Space') {
         event.preventDefault();
@@ -645,3 +643,4 @@ textBox.addEventListener('keydown', function (event) {
         }
     }
 });
+
