@@ -1,5 +1,14 @@
-<h1>Colxrs</H1>
+# Colxrs
 Random color palette generator.
+\
+Link: [Colxrs](https://colxrs.haocdan.com/)
 
-<h2>Built with</h2>
-[![Built with](https://skillicons.dev/icons?i=html,css,js&perline=10)](https://skillicons.dev)
+## Built with
+[![Built with](https://skillicons.dev/icons?i=js,html,css)](https://skillicons.dev)
+
+## Features
+- Default & Pastel colors
+- Complementary colors
+- Brightness button
+- Undo button
+- Lock button
