@@ -25,6 +25,32 @@ let colorStacks = [];
 const infoImage = document.querySelector('.generate-color-around-info img');
 const popupInfo = document.querySelector('.popup-info');
 
+async function getColorName(hex) {
+    const apiUrl = `https://colornames.org/search/json/?hex=${hex}`;
+
+    try {
+        const response = await fetch(apiUrl);
+
+        if (response.status === 403) {
+            throw new Error('Forbidden: Access denied');
+        }
+
+        if (!response.ok) {
+            throw new Error(`Error fetching color name: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        if (data && data.name) {
+            return data.name;
+        } else {
+            return 'Unknown color';
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        return 'Error fetching color name';
+    }
+}
+
 infoImage.addEventListener('mouseenter', () => {
     popupInfo.style.visibility = 'visible';
     popupInfo.style.opacity = '1';
@@ -57,6 +83,7 @@ hoverBrightnessButtons.forEach((button, index) => {
         } else {
             currentBrightnessIndicators[index].classList.remove('white');
         }
+        getColorName(colorCode[index].value);
 
     });
 });

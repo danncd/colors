@@ -372,8 +372,8 @@ textarea.textBox::placeholder {
     height: 100%;          /* Full height of the brightness bar */
     cursor: pointer;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
 }
 
 .brightness-bar p {
