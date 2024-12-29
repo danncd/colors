@@ -3,3 +3,10 @@ Random color palette generator.
 
 ## Built with
 [![Built with](https://skillicons.dev/icons?i=js,html,css)](https://skillicons.dev)
+
+## Features
+- Default & Pastel colors
+- Complementary colors
+- Brightness button
+- Undo button
+- Lock button
