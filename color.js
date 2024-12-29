@@ -5,6 +5,7 @@ const lockButtons = document.querySelectorAll('.lock-button');
 const undoButtons = document.querySelectorAll('.undo');
 const hoverBrightnessButtons = document.querySelectorAll('.brightness-hover');
 const brightnessBars = document.querySelectorAll('.brightness-bar');
+const currentBrightnessIndicators = document.querySelectorAll('.current-brightness');
 
 const allColors = document.querySelectorAll('.palette-color-content');
 
@@ -51,6 +52,12 @@ hoverBrightnessButtons.forEach((button, index) => {
         shades.forEach((shade, shadeIndex) => {
             shade.style.backgroundColor = shadows[shadeIndex];
         });
+        if (isColorTooDark(colorCode[index].value)) {
+            currentBrightnessIndicators[index].classList.add('white');
+        } else {
+            currentBrightnessIndicators[index].classList.remove('white');
+        }
+
     });
 });
 
@@ -462,10 +469,8 @@ function changeIfDark(color, index) {
         });
         brightnessImages.forEach(img => {
             img.classList.add('white');
-            console.log('Adding white to brightness image', img);
         });
         brightnessImages.forEach(img => {
-            console.log('Brightness image classes:', img.classList);
         });
 
     } else {
@@ -574,6 +579,10 @@ generateButton.addEventListener("click", function() {
 });
 
 function setColorsFromUrl(path) {
+    if (typeof path !== 'string') {
+        console.error('Invalid path:', path);
+        return;
+    }
     const hash = path.startsWith('/') ? path.substring(1) : path;
     if (hash) {
         const colorArray = hash.split('-');
@@ -591,7 +600,6 @@ window.addEventListener('DOMContentLoaded', () => {
     localStorage.removeItem('textBoxContent');
     localStorage.removeItem('colorContent');
     localStorage.removeItem('currentPath');
-    setColorsFromUrl();
 });
 
 document.addEventListener('keydown', function (event) {

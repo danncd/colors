@@ -356,6 +356,13 @@ textarea.textBox::placeholder {
     justify-content: space-between;  /* Align the shades with space between them */
 }
 
+.current-brightness {
+    color: black;
+}
+.current-brightness.white {
+    color: white;
+}
+
 .brightness-bar.show {
     visibility: visible;  /* Show the brightness bar */
 }
@@ -364,10 +371,16 @@ textarea.textBox::placeholder {
     width: 100%;           /* Make each shade take up the full width */
     height: 100%;          /* Full height of the brightness bar */
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
+.brightness-bar p {
+    margin: 0;
+}
 .palette-color-content .color-code{
-    opacity: 1 ;
+    opacity: 1;
 }
 
 .adjust-brightness {
