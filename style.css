@@ -491,6 +491,31 @@ textarea.color-code {
     border: 2px solid #32B3A8;
 }
 
+.creator-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.creator-info h1{
+    margin: 0;
+}
+
+.copyright-symbol {
+    font-weight: 300;
+    font-size: 15px;
+}
+
+.copyright-name {
+    font-weight: 400;
+    font-size: 18px;
+}
+
+.creator-info a {
+    all: unset;
+    cursor: pointer;
+}
+
 @media only screen and (max-width: 768px) {
 
     .content-case {
