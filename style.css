@@ -257,6 +257,7 @@ textarea.textBox::placeholder {
 }
 .color-code-box p{
     opacity: 0.9;
+    font-weight: 450;
     font-size: 15px;
     margin: 0;
 }
@@ -543,6 +544,10 @@ textarea.color-code {
 }
 
 @media only screen and (max-width: 768px) {
+
+    .color-code-name {
+        display: none;
+    }
 
     .content-case {
         height: calc(100vh - 140px);
@@ -867,5 +872,8 @@ textarea.color-code {
         top: 50%; /* Moves the brightness bar to the middle of the container */
         transform: translateY(-50%); /* Offsets the bar by half of its height, centering it vertically */
         visibility: hidden; /* Initially hide the brightness bar */
+    }
+    .color-code-name {
+        display: none;
     }
 }
