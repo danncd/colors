@@ -1,7 +1,7 @@
-# Colxrs
+# Colors
 Random color palette generator.
 \
-Link: [Colxrs](https://colxrs.haocdan.com/)
+Link: [Colors](https://colxrs.haocdan.com/)
 
 ## Built with
 [![Built with](https://skillicons.dev/icons?i=js,html,css)](https://skillicons.dev)
