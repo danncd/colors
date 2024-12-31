@@ -187,7 +187,6 @@ function makeColor(color, shade) {
     }
 }
 
-
 resetButton.addEventListener("click", function() {
     if (resetButton.textContent === "Reset") {
         resetButton.textContent = "Sure?";
