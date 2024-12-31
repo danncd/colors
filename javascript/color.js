@@ -195,7 +195,7 @@ resetButton.addEventListener("click", function() {
         resetButton.style.backgroundColor = '#FCEEEF';
         resetButton.style.border = '2px solid #DD3549';
     } else {
-        window.location.href = "https://colxrs.haocdan.com";
+        window.location.href = "https://colors.haocdan.com";
         localStorage.removeItem('textBoxContent');
         localStorage.removeItem('colorContent');
         localStorage.removeItem('currentPath');
