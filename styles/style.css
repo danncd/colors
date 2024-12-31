@@ -3,10 +3,14 @@ html, body {
     height: 100%;
     font-family: "Roboto", sans-serif;
     text-size-adjust: none;
+    text-rendering: optimizeLegibility;
     -webkit-text-size-adjust: none;
     -ms-text-size-adjust: none;
     -moz-text-size-adjust: none;
     -webkit-tap-highlight-color: transparent;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
 }
 
 textarea {
