@@ -1,4 +1,4 @@
-# Colxrs
+# Colors
 Random color palette generator.
 \
 Link: [Colxrs](https://colxrs.haocdan.com/)
