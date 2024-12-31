@@ -47,7 +47,6 @@ colors.forEach((color, index) => {
 window.addEventListener('DOMContentLoaded', () => {
     localStorage.removeItem('textBoxContent');
     localStorage.removeItem('colorContent');
-    localStorage.removeItem('currentPath');
 
 });
 
