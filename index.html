@@ -5,9 +5,15 @@
     <meta name="description" content="Fast, efficient and fun way to generate color palettes!" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/header.css">
+    <link rel="stylesheet" href="styles/content.css">
+    <link rel="stylesheet" href="styles/footer.css">
+    <link rel="stylesheet" href="styles/media-queries.css">
     </head>
 <body>
+
+    <!-- HEADER -->
     <div class="header-case">
         <div class="header">
             <div class="logo">
@@ -16,7 +22,7 @@
             <div class="header-info">
                 <h2>Random color palette generator</h2>
                 <div class="header-info-separator"></div>
-                <button id="menu-button" class="color-setting-button setting-default-color">Default</button>
+                <button id="menu-button" class="setting-default-color">Default</button>
             </div>
         </div>
     </div>
@@ -29,7 +35,7 @@
                 <div class="popup-info">
                     <h2>Generate complementary colors based on the color-code.</h2>
                 </div>
-                <textarea id="textBox" class="textBox" placeholder="color-code"></textarea>
+                <textarea id="textBox" class="textBox" placeholder="color-code" aria-label=""></textarea>
                 <div id="generate-color-around-circle" class="generate-color-around-circle"></div>
                 <div class="generate-color-around-info">
                     <img src="images/info.png" alt="">
@@ -39,6 +45,8 @@
             </div>
         </div>
     </div>
+
+    <!-- CONTENT -->
     <div class="content-case">
         <div class="palette">
             <div class="case">
@@ -74,7 +82,7 @@
                             <img src="images/copy-icon.png" alt="">
                         </button>
                         <div class="color-code-box">
-                            <textarea class="color-code"></textarea>
+                            <textarea class="color-code" aria-label=""></textarea>
                             <p class="color-code-name"></p>
                         </div>
                     </div>
@@ -113,7 +121,7 @@
                             <img src="images/copy-icon.png" alt="">
                         </button>
                         <div class="color-code-box">
-                            <textarea class="color-code"></textarea>
+                            <textarea class="color-code" aria-label=""></textarea>
                             <p class="color-code-name"></p>
                         </div>
                     </div>
@@ -152,7 +160,7 @@
                             <img src="images/copy-icon.png" alt="">
                         </button>
                         <div class="color-code-box">
-                            <textarea class="color-code"></textarea>
+                            <textarea class="color-code" aria-label=""></textarea>
                             <p class="color-code-name"></p>
                         </div>
                     </div>
@@ -191,7 +199,7 @@
                             <img src="images/copy-icon.png" alt="">
                         </button>
                         <div class="color-code-box">
-                            <textarea class="color-code"></textarea>
+                            <textarea class="color-code" aria-label=""></textarea>
                             <p class="color-code-name"></p>
                         </div>
                     </div>
@@ -230,7 +238,7 @@
                             <img src="images/copy-icon.png" alt="">
                         </button>
                         <div class="color-code-box">
-                            <textarea class="color-code"></textarea>
+                            <textarea class="color-code" aria-label=""></textarea>
                             <p class="color-code-name"></p>
                         </div>
                     </div>
@@ -242,6 +250,8 @@
     <div class="generate">
         <button id="generate">Generate</button>
     </div>
+
+    <!-- FOOTER -->
     <div class="footer-case">
         <div class="footer">
             <div class="creator-info">
@@ -251,6 +261,6 @@
         </div>
     </div>
     <script type="text/javascript" src="https://chir.ag/projects/ntc/ntc.js"></script>
-    <script src="color.js"></script>
+    <script src="javascript/color.js"></script>
 </body>
 </html>

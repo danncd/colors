@@ -1,0 +1,242 @@
+.content-case {
+    min-height: 590px;
+    width: 100%;
+    height: calc(100% - 120px);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.palette {
+    width: 1000px;
+    height: 520px;
+    background-color: #EEEEEE;
+    border-radius: 50px;
+    margin: 30px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.case {
+    display: flex;
+    align-items: center;
+    margin: 10px 10px 10px 10px;
+}
+
+.color {
+    border-radius: 150px;
+    width: 170px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: end;
+    align-items: center;
+    position: relative;
+}
+
+.color button {
+    font-weight: 400;
+    text-transform: uppercase;
+}
+
+.palette-color-content {
+    padding: 5px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: center;
+    justify-content: end;
+    margin-bottom: 72px;
+}
+
+.lock-button, .undo, .copy-button, .adjust-brightness {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.palette-color-content:hover .lock-button,
+.palette-color-content:hover .undo,
+.palette-color-content:hover .copy-button,
+.palette-color-content:hover .adjust-brightness{
+    opacity: 1;
+    visibility: visible;
+    cursor: pointer;
+}
+
+.adjust-brightness {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    z-index: 1000;
+}
+
+.brightness-bar {
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    width: 130px;
+    height: 380px;
+    border-radius: 200px;
+    position: absolute;
+    visibility: hidden;
+    justify-content: space-between;
+}
+
+.brightness-bar p {
+    margin: 0;
+}
+
+.brightness-bar.show {
+    visibility: visible;
+}
+
+.brightness-bar .shade {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.current-brightness {
+    color: black;
+}
+
+.current-brightness.white {
+    color: white;
+}
+
+.undo img, .lock-button img, .copy-button img, .adjust-brightness img{
+    width: 25px;
+}
+
+.copy-button img.white, .lock-button img.white, .undo img.white, .brightness-plus.white, .brightness-minus.white, .brightness-hover.white{
+    filter: invert(1);
+}
+
+.palette-color-content .color-code{
+    opacity: 1;
+}
+
+.color-code-box {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    align-items: center;
+}
+
+.color-code-box p{
+    opacity: 0.9;
+    font-weight: 450;
+    font-size: 15px;
+    margin: 0;
+}
+
+textarea.color-code {
+    overflow: hidden;
+    text-transform: uppercase;
+    text-align: center;
+    width: 115px;
+    height: 28px;
+    font-size: 28px;
+    font-weight: 450;
+    padding: 10px 10px 15px 10px;
+    border-radius: 50px;
+    transition: ease 0.2s;
+}
+
+.color-code:hover {
+    transition: ease 0.2s;
+    background-color: rgba(0, 0, 0, 0.10);
+}
+
+.color-code-name.white {
+    color: white;
+}
+
+.copy-toast {
+    visibility: hidden;
+    opacity: 0;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 400;
+    font-size: 18px;
+    color: #ffffff;
+    border-radius: 50px;
+    padding: 10px;
+    background-color: black;
+    z-index: 9999;
+    transition: opacity 0.3s ease, visibility 0s 0.3s;
+}
+
+.copy-toast::before {
+    display: flex;
+    content: '';
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #ADFF33;
+    margin-right: 10px;
+}
+
+.copy-toast.show {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.generate {
+    display: none;
+    height: 60px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.generate button {
+    font-size: 25px;
+    font-weight: 500;
+    border-radius: 50px;
+    padding: 6px 12px 6px 12px;
+    text-align: center;
+    width: 90%;
+
+    color: #32B3A8;
+    background-color: #EFFBFA;
+    border: 2px solid #32B3A8;
+}
+
+.palette-1 {
+    background-color: #FF6B6B;
+}
+
+.palette-2 {
+    background-color: #FFBE5C;
+}
+
+.palette-3 {
+    background-color: #FFFF99;
+}
+
+.palette-4 {
+    background-color: #D4EB8F;
+}
+
+.palette-5 {
+    background-color: #A8D685;
+}

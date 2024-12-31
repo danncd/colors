@@ -550,10 +550,10 @@ lockButtons.forEach((button, index) => {
 
         if (unlocked[index]) {
             button.classList.add('locked');
-            button.innerHTML = '<img src="images/unlocked.png" alt="Unlock Icon" />';
+            button.innerHTML = '<img src="../images/unlocked.png" alt="Unlock Icon" />';
         } else {
             button.classList.remove('locked');
-            button.innerHTML = '<img src="images/locked.png" alt="Lock Icon" />';
+            button.innerHTML = '<img src="../images/locked.png" alt="Lock Icon" />';
         }
         changeIfDark(colorCode[index].value, index);
     });
