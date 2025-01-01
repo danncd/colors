@@ -618,6 +618,8 @@ function setColorsFromUrl(path) {
         colors.forEach((colorDiv, index) => {
             colorDiv.style.backgroundColor = '#' + colorArray[index];
             colorCode[index].value = colorArray[index];
+            colorCodeNames[index].textContent = getColorName(colorCode[index].value);
+            changeIfDark(colorArray[index], index);
         });
     }
 }
